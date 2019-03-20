@@ -1,4 +1,4 @@
-# Beer_Recipe_VC
+# BeerVC
 
 * Receives BeerXML Input (http://www.beerxml.com/)
 * Parses the XML 
