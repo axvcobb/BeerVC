@@ -46,9 +46,10 @@ public class Main {
             Document doc = dBuilder.parse(inputFile);
             doc.getDocumentElement().normalize();
 
-            parseRecipe(doc);
-            parseHops(doc);
-            parseFermentables(doc);
+            //parseRecipe(doc);
+            //parseHops(doc);
+            //parseFermentables(doc);
+            parseRecipeDavid(doc);
         } catch (Exception e){
 
         }
@@ -131,6 +132,22 @@ public class Main {
                         .getElementsByTagName("DISPLAY_AMOUNT")
                         .item(0)
                         .getTextContent());
+            }
+        }
+    }
+
+    private static void parseRecipeDavid(Document doc){
+        NodeList recipes = doc.getElementsByTagName("RECIPE");
+        for (int i = 0; i < recipes.getLength(); i++){
+            Element recipe = (Element) recipes.item(i);
+            System.out.println("------------------------------");
+            System.out.println("Recipe Name: " + recipe.getElementsByTagName("NAME").item(0).getTextContent());
+            System.out.println("Recipe Version: " + recipe.getElementsByTagName("VERSION").item(0).getTextContent());
+            System.out.println("---Hops---");
+            NodeList hops = recipe.getElementsByTagName("HOP");
+            for (int j = 0; j < hops.getLength(); j++){
+                Element hop = (Element) hops.item(j);
+                System.out.println(hop.getElementsByTagName("NAME").item(0).getTextContent());
             }
         }
     }
