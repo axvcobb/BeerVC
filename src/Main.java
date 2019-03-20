@@ -16,6 +16,8 @@ import org.w3c.dom.Element;
 
 public class Main {
 
+    public static int tabCount = -1;
+
     public static void main(String[] args){
 
         /* JFrame frame = new JFrame();
@@ -49,7 +51,8 @@ public class Main {
             //parseRecipe(doc);
             //parseHops(doc);
             //parseFermentables(doc);
-            parseRecipeDavid(doc);
+            //parseRecipeDavid(doc);
+            parseRecipeRec(doc);
         } catch (Exception e){
 
         }
@@ -151,4 +154,35 @@ public class Main {
             }
         }
     }
+
+    private static void parseRecipeRec(Document doc){
+        if (doc.hasChildNodes()){
+            recursiveParse(doc.getChildNodes());
+        }
+    }
+
+    private static void recursiveParse(NodeList list){
+        tabCount++;
+        for(int i = 0; i < list.getLength(); i++){
+            Node n = list.item(i);
+            if (n.getNodeType() == Node.ELEMENT_NODE){
+                if (n.hasChildNodes()){
+                    System.out.println(getTabs() + n.getNodeName() + ":");
+                    recursiveParse(n.getChildNodes());
+                } else {
+                    System.out.println(getTabs() + n.getNodeName() + ": " + n.getTextContent());
+                }
+            }
+        }
+        tabCount--;
+    }
+
+    private static String getTabs(){
+        String t = "";
+        for (int i = 0; i < tabCount; i++){
+            t += "\t";
+        }
+        return t;
+    }
+
 }
