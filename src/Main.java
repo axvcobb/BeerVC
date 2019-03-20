@@ -166,7 +166,7 @@ public class Main {
         for(int i = 0; i < list.getLength(); i++){
             Node n = list.item(i);
             if (n.getNodeType() == Node.ELEMENT_NODE){
-                if (n.hasChildNodes()){
+                if (n.hasChildNodes() && n.getChildNodes().getLength() > 1){
                     System.out.println(getTabs() + n.getNodeName() + ":");
                     recursiveParse(n.getChildNodes());
                 } else {
