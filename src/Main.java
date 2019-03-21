@@ -1,4 +1,4 @@
-import javax.swing.*;
+/*import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -12,12 +12,18 @@ import javax.xml.parsers.DocumentBuilder;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
-import org.w3c.dom.Element;
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
-import org.xml.sax.Attributes;
-import org.xml.sax.SAXException;
-import org.xml.sax.helpers.DefaultHandler;
+import org.w3c.dom.Element;*/
+
+
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
+
+import org.jdom2.Attribute;
+import org.jdom2.Document;
+import org.jdom2.Element;
+import org.jdom2.JDOMException;
+import org.jdom2.input.SAXBuilder;
 
 
 public class Main {
@@ -45,44 +51,7 @@ public class Main {
             field.setText("Clicked");
         }); */
 
-        try {
-            SAXParserFactory factory = SAXParserFactory.newInstance();
-            SAXParser saxParser = factory.newSAXParser();
-
-            DefaultHandler handler = new DefaultHandler() {
-
-                public void startElement(String uri, String localName,String qName,
-                                         Attributes attributes) throws SAXException {
-
-
-                    System.out.println(qName);
-
-                    banana();
-
-
-                }
-
-                /* public void endElement(String uri, String localName,
-                                       String qName) throws SAXException {
-
-                    System.out.println("End Element: " + qName);
-
-                }
-
-                public void characters(char ch[], int start, int length) throws SAXException {
-
-                    System.out.println("Value: " + new String(ch, start, length));
-
-
-                }*/
-
-            };
-
-            saxParser.parse("recipes.xml", handler);
-        } catch (Exception e) {
-
-        }
-        /* try {
+        /*try {
             File inputFile = new File("recipes.xml");
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
@@ -96,19 +65,42 @@ public class Main {
 
         } */
 
+        try {
+            File inputFile = new File("recipes.xml");
+            SAXBuilder saxBuilder = new SAXBuilder();
+            Document document = saxBuilder.build(inputFile);
+            System.out.println("Root element: " + document.getRootElement().getName());
+            Element recipesElement = document.getRootElement();
+
+            List<Element> recipeList = recipesElement.getChildren();
+
+            System.out.println("----------------------------");
+
+
+            for (int temp = 0; temp < recipeList.size(); temp++) {
+
+                Element student = recipeList.get(temp);
+                System.out.println("\nCurrent Element: "
+                        + student.getName());
+            }
+            recipeList.forEach(System.out::println);
+        } catch (Exception e) {
+
+        }
+
     }
 
-    private static void banana() {
+    /* private static void banana() {
          System.out.println("Banana");
     }
 
     private static void parseRecipe(Document doc){
 
-        NodeList recipe = doc.getElementsByTagName("RECIPE");
+        NodeList recipes = doc.getElementsByTagName("*");
         System.out.println("----------------------------");
 
-        for (int temp = 0; temp < recipe.getLength(); temp++) {
-            Node nNode = recipe.item(temp);
+        for (int temp = 0; temp < recipes.getLength(); temp++) {
+            Node nNode = recipes.item(temp);
             System.out.println("\nCurrent Element: " + nNode.getNodeName());
 
             if (nNode.getNodeType() == Node.ELEMENT_NODE) {
@@ -180,5 +172,5 @@ public class Main {
                         .getTextContent());
             }
         }
-    }
+    } */
 }

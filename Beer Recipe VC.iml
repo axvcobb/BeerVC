@@ -17,5 +17,6 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="com.google.firebase:firebase-admin:5.3.0" level="project" />
+    <orderEntry type="library" name="org.jdom:jdom2:2.0.6" level="project" />
   </component>
 </module>
