@@ -72,18 +72,19 @@ public class Main {
             System.out.println("Root element: " + document.getRootElement().getName());
             Element recipesElement = document.getRootElement();
 
-            List<Element> recipeList = recipesElement.getChildren();
+            List<Element> recipesList = recipesElement.getChildren().get(0).getChildren();
 
             System.out.println("----------------------------");
 
+            List<Element> recipeList = recipesList.get(0).getChildren("HOPS");
 
-            for (int temp = 0; temp < recipeList.size(); temp++) {
+            /* for (int temp = 0; temp < recipeList.size(); temp++) {
 
                 Element student = recipeList.get(temp);
                 System.out.println("\nCurrent Element: "
                         + student.getName());
-            }
-            recipeList.forEach(System.out::println);
+            } */
+            recipesList.forEach(System.out::println);
         } catch (Exception e) {
 
         }
