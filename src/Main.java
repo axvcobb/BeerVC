@@ -57,6 +57,8 @@ public class Main {
 
                     System.out.println(qName);
 
+                    banana();
+
 
                 }
 
@@ -94,6 +96,10 @@ public class Main {
 
         } */
 
+    }
+
+    private static void banana() {
+         System.out.println("Banana");
     }
 
     private static void parseRecipe(Document doc){
