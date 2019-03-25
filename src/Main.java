@@ -41,17 +41,23 @@ public class Main {
             System.out.println("Root element: " + document.getRootElement().getName());
             Element recipesElement = document.getRootElement();
 
-            List<Element> recipe = recipesElement.getChildren();
+            List<Element> recipes = recipesElement.getChildren();
 
             List<Element> hops = recipesElement.getChildren().get(0).getChildren("HOPS").get(0).getChildren("HOP");
 
             List<Element> fermentables = recipesElement.getChildren().get(0).getChildren("FERMENTABLES").get(0).getChildren("FERMENTABLE");
 
+            List<Element> miscs = recipesElement.getChildren().get(0).getChildren("MISCS").get(0).getChildren("MISC");
+
+            List<Element> yeasts = recipesElement.getChildren().get(0).getChildren("YEASTS").get(0).getChildren("YEAST");
+
             System.out.println("----------------------------");
 
-            parseRecipe(recipe);
+            parseRecipe(recipes);
             parseFermentables(fermentables);
+            parseMiscs(miscs);
             parseHops(hops);
+            parseYeasts(yeasts);
 
         } catch(JDOMException e) {
 
@@ -65,39 +71,60 @@ public class Main {
 
     }
 
-    private static void parseRecipe(List<Element> recipe) {
+    private static void parseRecipe(List<Element> recipes) {
 
-        for (int temp = 0; temp < recipe.size(); temp++) {
+        for(Element recipe : recipes) {
 
-            Element student = recipe.get(temp);
             System.out.println("Name: "
-                    + student.getChild("NAME").getText() + "\n");
+                    + recipe.getChild("NAME").getText() + "\n");
         }
 
     }
 
     private static void parseFermentables(List<Element> fermentables) {
 
-        for (int temp = 0; temp < fermentables.size(); temp++) {
+        for(Element fermentable : fermentables) {
 
-            Element student = fermentables.get(temp);
             System.out.println("Name: "
-                    + student.getChild("NAME").getText());
+                    + fermentable.getChild("NAME").getText());
             System.out.println("Amount: "
-                    + student.getChild("DISPLAY_AMOUNT").getText() + "\n");
+                    + fermentable.getChild("DISPLAY_AMOUNT").getText() + "\n");
+        }
+
+    }
+
+    private static void parseMiscs(List<Element> miscs) {
+
+        for(Element misc : miscs) {
+
+            System.out.println("Name: "
+                    + misc.getChild("NAME").getText());
+            System.out.println("Type: "
+                    + misc.getChild("TYPE").getText());
+            System.out.println("Amount: "
+                    + misc.getChild("DISPLAY_AMOUNT").getText() + "\n");
         }
 
     }
 
     private static void parseHops(List<Element> hops) {
 
-        for (int temp = 0; temp < hops.size(); temp++) {
+        for(Element hop : hops) {
 
-            Element student = hops.get(temp);
             System.out.println("Name: "
-                    + student.getChild("NAME").getText());
+                    + hop.getChild("NAME").getText());
             System.out.println("Time: "
-                    + student.getChild("DISPLAY_TIME").getText() + "\n");
+                    + hop.getChild("DISPLAY_TIME").getText() + "\n");
+        }
+
+    }
+
+    private static void parseYeasts(List<Element> yeasts) {
+
+        for(Element yeast : yeasts) {
+
+            System.out.println("Name: "
+                    + yeast.getChild("NAME").getText() + "\n");
         }
 
     }
