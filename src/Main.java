@@ -1,9 +1,11 @@
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.input.SAXBuilder;
+import org.jdom2.JDOMException;
 
 
 public class Main {
@@ -43,14 +45,21 @@ public class Main {
 
             List<Element> hops = recipesElement.getChildren().get(0).getChildren("HOPS").get(0).getChildren("HOP");
 
+            List<Element> fermentables = recipesElement.getChildren().get(0).getChildren("FERMENTABLES").get(0).getChildren("FERMENTABLE");
+
             System.out.println("----------------------------");
 
             parseRecipe(recipe);
+            parseFermentables(fermentables);
             parseHops(hops);
 
-        } catch (Exception e) {
+        } catch(JDOMException e) {
 
-            System.out.println("There is an issue with the XML");
+            e.printStackTrace();
+
+        } catch(IOException ioe) {
+
+            ioe.printStackTrace();
 
         }
 
@@ -63,6 +72,19 @@ public class Main {
             Element student = recipe.get(temp);
             System.out.println("Name: "
                     + student.getChild("NAME").getText() + "\n");
+        }
+
+    }
+
+    private static void parseFermentables(List<Element> fermentables) {
+
+        for (int temp = 0; temp < fermentables.size(); temp++) {
+
+            Element student = fermentables.get(temp);
+            System.out.println("Name: "
+                    + student.getChild("NAME").getText());
+            System.out.println("Amount: "
+                    + student.getChild("DISPLAY_AMOUNT").getText() + "\n");
         }
 
     }
