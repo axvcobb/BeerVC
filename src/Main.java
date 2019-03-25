@@ -1,28 +1,8 @@
-/*import javax.swing.*;
-import java.awt.*;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.io.FileReader;
-import java.util.*;
-import java.util.List;
-import java.util.stream.Stream;
 import java.io.File;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.DocumentBuilder;
-import org.w3c.dom.Document;
-import org.w3c.dom.NodeList;
-import org.w3c.dom.Node;
-import org.w3c.dom.Element;*/
-
-
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
 
-import org.jdom2.Attribute;
 import org.jdom2.Document;
 import org.jdom2.Element;
-import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 
 
@@ -51,127 +31,53 @@ public class Main {
             field.setText("Clicked");
         }); */
 
-        /*try {
-            File inputFile = new File("recipes.xml");
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(inputFile);
-            doc.getDocumentElement().normalize();
-
-            parseRecipe(doc);
-            parseHops(doc);
-            parseFermentables(doc);
-        } catch (Exception e){
-
-        } */
-
         try {
+
             File inputFile = new File("recipes.xml");
             SAXBuilder saxBuilder = new SAXBuilder();
             Document document = saxBuilder.build(inputFile);
             System.out.println("Root element: " + document.getRootElement().getName());
             Element recipesElement = document.getRootElement();
 
-            List<Element> recipesList = recipesElement.getChildren().get(0).getChildren();
+            List<Element> recipe = recipesElement.getChildren();
+
+            List<Element> hops = recipesElement.getChildren().get(0).getChildren("HOPS").get(0).getChildren("HOP");
 
             System.out.println("----------------------------");
 
-            List<Element> recipeList = recipesList.get(0).getChildren("HOPS");
+            parseRecipe(recipe);
+            parseHops(hops);
 
-            /* for (int temp = 0; temp < recipeList.size(); temp++) {
-
-                Element student = recipeList.get(temp);
-                System.out.println("\nCurrent Element: "
-                        + student.getName());
-            } */
-            recipesList.forEach(System.out::println);
         } catch (Exception e) {
 
+            System.out.println("There is an issue with the XML");
+
         }
 
     }
 
-    /* private static void banana() {
-         System.out.println("Banana");
+    private static void parseRecipe(List<Element> recipe) {
+
+        for (int temp = 0; temp < recipe.size(); temp++) {
+
+            Element student = recipe.get(temp);
+            System.out.println("Name: "
+                    + student.getChild("NAME").getText() + "\n");
+        }
+
     }
 
-    private static void parseRecipe(Document doc){
+    private static void parseHops(List<Element> hops) {
 
-        NodeList recipes = doc.getElementsByTagName("*");
-        System.out.println("----------------------------");
+        for (int temp = 0; temp < hops.size(); temp++) {
 
-        for (int temp = 0; temp < recipes.getLength(); temp++) {
-            Node nNode = recipes.item(temp);
-            System.out.println("\nCurrent Element: " + nNode.getNodeName());
-
-            if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-                Element eElement = (Element) nNode;
-                System.out.println("Name: "
-                        + eElement
-                        .getElementsByTagName("NAME")
-                        .item(0)
-                        .getTextContent());
-                System.out.println("Type: "
-                        + eElement
-                        .getElementsByTagName("TYPE")
-                        .item(0)
-                        .getTextContent());
-                System.out.println("Brewer: "
-                        + eElement
-                        .getElementsByTagName("BREWER")
-                        .item(0)
-                        .getTextContent());
-            }
+            Element student = hops.get(temp);
+            System.out.println("Name: "
+                    + student.getChild("NAME").getText());
+            System.out.println("Time: "
+                    + student.getChild("DISPLAY_TIME").getText() + "\n");
         }
+
     }
 
-    private static void parseHops(Document doc){
-
-        NodeList hops = doc.getElementsByTagName("HOP");
-        System.out.println("----------------------------");
-
-        for (int temp = 0; temp < hops.getLength(); temp++) {
-            Node nnNode = hops.item(temp);
-            System.out.println("\nCurrent Element: " + nnNode.getNodeName());
-
-            if (nnNode.getNodeType() == Node.ELEMENT_NODE) {
-                Element eElement = (Element) nnNode;
-                System.out.println("Hop Name: "
-                        + eElement
-                        .getElementsByTagName("NAME")
-                        .item(0)
-                        .getTextContent());
-                System.out.println("Hop Time: "
-                        + eElement
-                        .getElementsByTagName("DISPLAY_TIME")
-                        .item(0)
-                        .getTextContent());
-            }
-        }
-    }
-
-    private static void parseFermentables(Document doc){
-
-        NodeList fermentable = doc.getElementsByTagName("FERMENTABLE");
-        System.out.println("----------------------------");
-
-        for (int temp = 0; temp < fermentable.getLength(); temp++) {
-            Node nnNode = fermentable.item(temp);
-            System.out.println("\nCurrent Element: " + nnNode.getNodeName());
-
-            if (nnNode.getNodeType() == Node.ELEMENT_NODE) {
-                Element eElement = (Element) nnNode;
-                System.out.println("Fermentable Name: "
-                        + eElement
-                        .getElementsByTagName("NAME")
-                        .item(0)
-                        .getTextContent());
-                System.out.println("Amount: "
-                        + eElement
-                        .getElementsByTagName("DISPLAY_AMOUNT")
-                        .item(0)
-                        .getTextContent());
-            }
-        }
-    } */
 }
