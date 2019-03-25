@@ -75,7 +75,7 @@ public class Main {
 
         for(Element recipe : recipes) {
 
-            System.out.println("Name: "
+            System.out.println("Recipe Name: "
                     + recipe.getChild("NAME").getText() + "\n");
         }
 
@@ -123,6 +123,8 @@ public class Main {
 
         for(Element yeast : yeasts) {
 
+            System.out.println("Laboratory: "
+                    + yeast.getChild("LABORATORY").getText());
             System.out.println("Name: "
                     + yeast.getChild("NAME").getText() + "\n");
         }
